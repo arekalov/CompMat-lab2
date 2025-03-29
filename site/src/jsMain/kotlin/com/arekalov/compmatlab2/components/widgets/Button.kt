@@ -13,7 +13,7 @@ import com.arekalov.compmatlab2.UncoloredButtonVariant
 fun IconButton(onClick: () -> Unit, content: @Composable () -> Unit) {
     Button(
         onClick = { onClick() },
-        Modifier.setVariable(ButtonVars.FontSize, 1.em), // Make button icon size relative to parent container font size
+        Modifier.setVariable(ButtonVars.FontSize, 1.em),
         variant = CircleButtonVariant.then(UncoloredButtonVariant)
     ) {
         content()
