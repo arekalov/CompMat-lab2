@@ -1,6 +1,10 @@
 package com.arekalov.compmatlab2.pages
 
 import androidx.compose.runtime.Composable
+import com.arekalov.compmatlab2.HeadlineTextStyle
+import com.arekalov.compmatlab2.SubheadlineTextStyle
+import com.arekalov.compmatlab2.components.layouts.PageLayout
+import com.arekalov.compmatlab2.toSitePalette
 import com.varabyte.kobweb.compose.css.StyleVariable
 import com.varabyte.kobweb.compose.foundation.layout.Box
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -29,10 +33,6 @@ import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.css.vh
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.Text
-import com.arekalov.compmatlab2.HeadlineTextStyle
-import com.arekalov.compmatlab2.SubheadlineTextStyle
-import com.arekalov.compmatlab2.components.layouts.PageLayout
-import com.arekalov.compmatlab2.toSitePalette
 
 // Container that has a tagline and grid on desktop, and just the tagline on mobile
 val HeroContainerStyle = CssStyle {
@@ -111,12 +111,13 @@ fun HomePage() {
                 }
             }
 
-            Div(HomeGridStyle
+            Div(
+                HomeGridStyle
                 .toModifier()
                 .displayIfAtLeast(Breakpoint.MD)
                 .grid {
                     rows { repeat(3) { size(1.fr) } }
-                    columns { repeat(5) {size(1.fr) } }
+                    columns { repeat(5) { size(1.fr) } }
                 }
                 .toAttrs()
             ) {

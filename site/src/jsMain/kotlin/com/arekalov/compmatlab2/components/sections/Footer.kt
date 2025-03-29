@@ -1,6 +1,8 @@
 package com.arekalov.compmatlab2.components.sections
 
 import androidx.compose.runtime.Composable
+import com.arekalov.compmatlab2.common.GITHUB_URI
+import com.arekalov.compmatlab2.toSitePalette
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
 import com.varabyte.kobweb.compose.foundation.layout.Box
@@ -19,12 +21,11 @@ import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.dom.Span
-import com.arekalov.compmatlab2.toSitePalette
 
 val FooterStyle = CssStyle.base {
     Modifier
         .backgroundColor(colorMode.toSitePalette().nearBackground)
-        .padding(topBottom = 1.5.cssRem, leftRight = 10.percent)
+        .padding(topBottom = 1.cssRem, leftRight = 10.percent)
 }
 
 @Composable
@@ -32,20 +33,10 @@ fun Footer(modifier: Modifier = Modifier) {
     Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
         Span(Modifier.textAlign(TextAlign.Center).toAttrs()) {
             val sitePalette = ColorMode.current.toSitePalette()
-            SpanText("Built with ")
+            SpanText("Made by arekalov.\t")
             Link(
-                "https://github.com/varabyte/kobweb",
-                "Kobweb",
-                Modifier.setVariable(ColorVar, sitePalette.brand.primary),
-                variant = UncoloredLinkVariant
-            )
-            SpanText(", template designed by ")
-
-            // Huge thanks to UI Rocket (https://ui-rocket.com) for putting this great template design together for us!
-            // If you like what you see here and want help building your own site, consider checking out their services.
-            Link(
-                "https://ui-rocket.com",
-                "UI Rocket",
+                GITHUB_URI,
+                "Source code here",
                 Modifier.setVariable(ColorVar, sitePalette.brand.accent).whiteSpace(WhiteSpace.NoWrap),
                 variant = UncoloredLinkVariant
             )
