@@ -27,7 +27,7 @@ class SitePalette(
 object SitePalettes {
     val light = SitePalette(
         nearBackground = Color.rgb(0xF4F6FA),
-        cobweb = Colors.LightGray,
+        cobweb = Color.rgb(230, 230, 230),
         text = Color.rgb(10, 10, 10),
         brand = SitePalette.Brand(
             primary = Color.rgb(0x3C83EF),

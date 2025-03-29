@@ -11,17 +11,14 @@ import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.*
 import com.varabyte.kobweb.silk.style.CssStyle
-import com.varabyte.kobweb.silk.style.breakpoint.Breakpoint
 import com.varabyte.kobweb.silk.style.toAttrs
 import kotlinx.browser.document
-import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.fr
 import org.jetbrains.compose.web.css.percent
 import org.jetbrains.compose.web.dom.Div
 
 val PageContentStyle = CssStyle {
-    base { Modifier.fillMaxSize().padding(leftRight = 1.cssRem, top = 1.cssRem) }
-    Breakpoint.MD { Modifier.maxWidth(60.cssRem) }
+    base { Modifier.fillMaxSize() }
 }
 
 @Composable

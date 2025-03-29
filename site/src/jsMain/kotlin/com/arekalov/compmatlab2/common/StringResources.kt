@@ -5,3 +5,5 @@ const val SOURCE_CODE_STR = "Source code here"
 const val CHANGE_THEME_STR = "Change theme"
 
 const val UNEXPECTED_STR = "unexpected"
+const val SINGLE_STR = "single"
+const val SYSTEM_STR = "system"

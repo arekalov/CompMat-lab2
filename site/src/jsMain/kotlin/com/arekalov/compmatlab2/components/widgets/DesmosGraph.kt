@@ -8,12 +8,15 @@ import org.jetbrains.compose.web.css.width
 import org.jetbrains.compose.web.dom.Div
 
 @Composable
-fun DesmosGraph() {
+fun DesmosGraph(
+    width: Float = 50f,
+    height: Float = 30f,
+) {
     Div(attrs = {
         id(CALCULATOR_DIV_ID)
         style {
-            width(30.cssRem)
-            height(20.cssRem)
+            width(width.cssRem)
+            height(height.cssRem)
         }
     })
 }

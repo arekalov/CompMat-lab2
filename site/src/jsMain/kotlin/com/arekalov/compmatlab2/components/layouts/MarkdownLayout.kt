@@ -83,9 +83,9 @@ val MarkdownStyle = CssStyle {
 
 @Composable
 fun MarkdownLayout(title: String, content: @Composable () -> Unit) {
-    PageLayout(title) {
+//    PageLayout(title) {
         Div(MarkdownStyle.toAttrs()) {
             content()
         }
-    }
+//    }
 }

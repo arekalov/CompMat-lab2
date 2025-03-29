@@ -26,7 +26,7 @@ import org.jetbrains.compose.web.dom.Span
 
 val FooterStyle = CssStyle.base {
     Modifier
-        .backgroundColor(colorMode.toSitePalette().nearBackground)
+        .backgroundColor(colorMode.toSitePalette().cobweb)
         .padding(topBottom = 1.cssRem, leftRight = 10.percent)
 }
 
@@ -39,7 +39,7 @@ fun Footer(modifier: Modifier = Modifier) {
             Link(
                 GITHUB_URI,
                 SOURCE_CODE_STR,
-                Modifier.setVariable(ColorVar, sitePalette.brand.accent).whiteSpace(WhiteSpace.NoWrap),
+                Modifier.setVariable(ColorVar, sitePalette.brand.primary).whiteSpace(WhiteSpace.NoWrap),
                 variant = UncoloredLinkVariant
             )
         }

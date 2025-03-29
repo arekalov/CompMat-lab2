@@ -17,6 +17,7 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun BoldRegularText(
     text: String,
+    fontSize: Double = 1.3,
     color: Color = ColorMode.current.toSitePalette().text,
     modifier: Modifier = Modifier
 ) {
@@ -24,7 +25,7 @@ fun BoldRegularText(
         attrs = modifier
             .color(color)
             .fontWeight(FontWeight.Bold)
-            .fontSize(1.3.cssRem)
+            .fontSize(fontSize.cssRem)
             .toAttrs()
     ) {
         Text(text)
