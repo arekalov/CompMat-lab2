@@ -3,7 +3,9 @@ package com.arekalov.compmatlab2.components.sections
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.arekalov.compmatlab2.common.CHANGE_THEME_STR
 import com.arekalov.compmatlab2.common.GITHUB_URI
+import com.arekalov.compmatlab2.common.PAGE_TITLE
 import com.arekalov.compmatlab2.components.widgets.IconButton
 import com.arekalov.compmatlab2.network.Theme
 import com.arekalov.compmatlab2.network.setTheme
@@ -47,7 +49,7 @@ private fun ColorModeButton() {
     }) {
         if (colorMode.isLight) MoonIcon() else SunIcon()
     }
-    Tooltip(ElementTarget.PreviousSibling, "Change theme", placement = PopupPlacement.BottomRight)
+    Tooltip(ElementTarget.PreviousSibling, CHANGE_THEME_STR, placement = PopupPlacement.BottomRight)
 }
 
 @Composable
@@ -58,7 +60,7 @@ fun NavHeader() {
             .margin(left = 1.cssRem)
     ) {
         Link(GITHUB_URI) {
-            Image("/compmat-logo.png", "CompMat-lab2", Modifier.height(3.cssRem).display(DisplayStyle.Block))
+            Image("/compmat-logo.png", PAGE_TITLE, Modifier.height(3.cssRem).display(DisplayStyle.Block))
         }
 
         Spacer()

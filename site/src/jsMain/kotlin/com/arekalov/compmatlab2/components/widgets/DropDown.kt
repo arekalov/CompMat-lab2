@@ -1,6 +1,7 @@
 package com.arekalov.compmatlab2.components.widgets
 
 import androidx.compose.runtime.Composable
+import com.arekalov.compmatlab2.common.UNEXPECTED_STR
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.minWidth
 import com.varabyte.kobweb.compose.ui.modifiers.padding
@@ -21,7 +22,7 @@ fun StringDropDown(
             .minWidth(5.cssRem)
             .padding(0.5.cssRem)
             .toAttrs {
-                onInput { onSelect.invoke(it.value ?: "unexpected value") }
+                onInput { onSelect.invoke(it.value ?: UNEXPECTED_STR) }
             }
     ) {
         options.forEach {

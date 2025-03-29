@@ -2,6 +2,8 @@ package com.arekalov.compmatlab2.components.sections
 
 import androidx.compose.runtime.Composable
 import com.arekalov.compmatlab2.common.GITHUB_URI
+import com.arekalov.compmatlab2.common.MADE_BY_STR
+import com.arekalov.compmatlab2.common.SOURCE_CODE_STR
 import com.arekalov.compmatlab2.toSitePalette
 import com.varabyte.kobweb.compose.css.TextAlign
 import com.varabyte.kobweb.compose.css.WhiteSpace
@@ -33,10 +35,10 @@ fun Footer(modifier: Modifier = Modifier) {
     Box(FooterStyle.toModifier().then(modifier), contentAlignment = Alignment.Center) {
         Span(Modifier.textAlign(TextAlign.Center).toAttrs()) {
             val sitePalette = ColorMode.current.toSitePalette()
-            SpanText("Made by arekalov.\t")
+            SpanText("$MADE_BY_STR ")
             Link(
                 GITHUB_URI,
-                "Source code here",
+                SOURCE_CODE_STR,
                 Modifier.setVariable(ColorVar, sitePalette.brand.accent).whiteSpace(WhiteSpace.NoWrap),
                 variant = UncoloredLinkVariant
             )

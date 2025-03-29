@@ -1,6 +1,7 @@
 package com.arekalov.compmatlab2.components.layouts
 
 import androidx.compose.runtime.Composable
+import com.arekalov.compmatlab2.toSitePalette
 import com.varabyte.kobweb.compose.css.FontWeight
 import com.varabyte.kobweb.compose.css.Overflow
 import com.varabyte.kobweb.compose.css.OverflowWrap
@@ -15,7 +16,6 @@ import org.jetbrains.compose.web.css.LineStyle
 import org.jetbrains.compose.web.css.cssRem
 import org.jetbrains.compose.web.css.px
 import org.jetbrains.compose.web.dom.Div
-import com.arekalov.compmatlab2.toSitePalette
 
 val MarkdownStyle = CssStyle {
     base { Modifier.fillMaxSize() }
@@ -25,7 +25,7 @@ val MarkdownStyle = CssStyle {
             .fontSize(3.cssRem)
             .fontWeight(400)
             .margin(bottom = 2.5.cssRem)
-            .lineHeight(1.2) //1.5x doesn't look as good on very large text
+            .lineHeight(1.2)
     }
 
     cssRule("h2") {
