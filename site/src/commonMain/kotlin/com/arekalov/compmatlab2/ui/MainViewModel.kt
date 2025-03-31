@@ -2,12 +2,16 @@ package com.arekalov.compmatlab2.ui
 
 import androidx.lifecycle.ViewModel
 import com.arekalov.compmatlab2.ui.model.Method
-import com.arekalov.compmatlab2.ui.model.State
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import com.arekalov.compmatlab2.data.*
-import com.arekalov.compmatlab2.ui.model.toDesmosExpression
+import com.arekalov.compmatlab2.data.common.MathConstants
+import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.data.models.SingleSolvingParams
+import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
+import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
+import com.arekalov.compmatlab2.ui.model.Solution
 
 class MainViewModel : ViewModel() {
     private val _singleState =
@@ -21,7 +25,6 @@ class MainViewModel : ViewModel() {
 
 
     fun reduce(action: Action) {
-        jsLog(action.toString())
         when (action) {
             is SingleAction -> when (action) {
                 is SingleAction.Calculate -> onCalculateReceived()
@@ -46,7 +49,16 @@ class MainViewModel : ViewModel() {
 
     // For SingleState
     private fun onCalculateReceived() {
-        // TODO:  
+        jsLog("onCalculateReceived")
+        if (singleState.value.method == Method.HalfDivision) {
+            jsLog("HalfDivision")
+            _singleState.update {
+                it.copy(
+                    solution = halfDivisionMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                )
+            }
+        }
+
     }
 
     private fun onChangeAReceived(a: Double?) {
@@ -59,11 +71,14 @@ class MainViewModel : ViewModel() {
         updateSingleExpression()
     }
 
-    private fun onChangeMethod(method: Method) {
-        _singleState.update { it.copy(method = method) }
+    private fun onChangeMethod(method: String) {
+        _singleState.update {
+            it.copy(method = MathConstants.SINGLE_METHOD_LIST.find { it.name == method }
+                ?: MathConstants.SINGLE_METHOD_LIST.first())
+        }
     }
 
-    private fun onChangeEquation(equation: String) {
+    private fun onChangeEquation(equation: SingleEquation) {
         _singleState.update {
             it.copy(
                 equation = equation,
@@ -72,7 +87,6 @@ class MainViewModel : ViewModel() {
                 method = Method.SimpleIterations
             )
         }
-//        setExpression(singleState.value.equation ?: "", FIRST_EQUATION)
         updateSingleExpression()
     }
 
@@ -81,7 +95,7 @@ class MainViewModel : ViewModel() {
             toDesmosExpression(
                 a = singleState.value.a,
                 b = singleState.value.b,
-                equation = singleState.value.equation
+                equation = singleState.value.equation?.string
             ), FIRST_EQUATION
         )
     }
@@ -89,7 +103,16 @@ class MainViewModel : ViewModel() {
 
     // For SystemState
     private fun onSystemCalculateReceived() {
-        // TODO:  
+        _systemState.update {
+            it.copy(
+                solution = Solution(
+                    systemState.value.x ?: 0.0,
+                    functionResult = systemState.value.y ?: 0.0,
+                    iterationsCount = 0,
+                    method = Method.HalfDivision,
+                )
+            )
+        }
     }
 
     private fun onChangeFirstEquation(equation: String) {

@@ -4,7 +4,9 @@ import androidx.compose.runtime.*
 import com.arekalov.compmatlab2.common.*
 import com.arekalov.compmatlab2.components.widgets.DropDownMenuWithLabel
 import com.arekalov.compmatlab2.components.widgets.EditTextWithLabel
-import com.arekalov.compmatlab2.ui.model.State
+import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.ui.State
+import com.arekalov.compmatlab2.ui.model.Method
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -18,7 +20,8 @@ fun SingleStateInput(
     state: State.SingleState,
     onAChange: (Double?) -> Unit,
     onBChange: (Double?) -> Unit,
-    onEquationChanged: (String) -> Unit,
+    onEquationChanged: (SingleEquation) -> Unit,
+    onSingleEqMethodChanged: (String) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(1.cssRem),
@@ -29,14 +32,14 @@ fun SingleStateInput(
     ) {
         var a by remember { mutableStateOf("") }
         var b by remember { mutableStateOf("") }
-        
+
         DropDownMenuWithLabel(
             onSelect = { value ->
                 a = ""
                 b = ""
-                onEquationChanged(value)
+                onEquationChanged(state.equationsList.find { it.string == value }!!)
             },
-            options = state.equationsList,
+            options = state.equationsList.map { it.string },
             labelText = EQUATION_STR
         )
         EditTextWithLabel(
@@ -58,7 +61,7 @@ fun SingleStateInput(
             labelText = B_LABEL_STR,
         )
         DropDownMenuWithLabel(
-            onSelect = { sting -> },
+            onSelect = onSingleEqMethodChanged,
             options = state.methodsList.map { it.name },
             labelText = METHOD_LABEL_STR
         )

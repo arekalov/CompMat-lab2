@@ -1,20 +1,20 @@
 package com.arekalov.compmatlab2.ui
 
+import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.ui.model.Method
-import com.arekalov.compmatlab2.ui.model.Mode
 
 sealed interface Action
 
 sealed class SingleAction : Action {
     data object Calculate : SingleAction()
 
-    data class ChangeEquation(val equation: String) : SingleAction()
+    data class ChangeEquation(val equation: SingleEquation) : SingleAction()
 
     data class ChangeA(val a: Double?) : SingleAction()
 
     data class ChangeB(val b: Double?) : SingleAction()
 
-    data class ChangeMethod(val method: Method) : SingleAction()
+    data class ChangeMethod(val method: String) : SingleAction()
 
     data class ChangeMode(val mode: Mode) : SingleAction()
 }

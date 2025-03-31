@@ -22,7 +22,7 @@ fun ToggleEqMode(
             text = SINGLE_STR,
         )
         Toggle(
-            checked = systemSelected,
+            checked = !systemSelected,
             onCheckedChange = onChange
         )
         RegularText(

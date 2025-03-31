@@ -4,15 +4,13 @@ import androidx.compose.runtime.*
 import com.arekalov.compmatlab2.common.*
 import com.arekalov.compmatlab2.components.widgets.DropDownMenuWithLabel
 import com.arekalov.compmatlab2.components.widgets.EditTextWithLabel
-import com.arekalov.compmatlab2.toSitePalette
-import com.arekalov.compmatlab2.ui.model.State
+import com.arekalov.compmatlab2.ui.State
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.compose.ui.modifiers.padding
-import com.varabyte.kobweb.silk.theme.colors.ColorMode
 import org.jetbrains.compose.web.css.cssRem
 
 

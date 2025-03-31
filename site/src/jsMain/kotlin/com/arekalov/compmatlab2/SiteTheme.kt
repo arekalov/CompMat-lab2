@@ -30,8 +30,8 @@ object SitePalettes {
         cobweb = Color.rgb(230, 230, 230),
         text = Color.rgb(10, 10, 10),
         brand = SitePalette.Brand(
-            primary = Color.rgb(0x3C83EF),
-            accent = Color.rgb(0xF3DB5B),
+            primary = Color.rgb(0x3C83EF).inverted(),
+            accent = Color.rgb(0xF3DB5B).inverted(),
         )
     )
     val dark = SitePalette(

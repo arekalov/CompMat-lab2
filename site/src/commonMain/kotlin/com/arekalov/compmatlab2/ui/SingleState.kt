@@ -1,13 +1,16 @@
-package com.arekalov.compmatlab2.ui.model
+package com.arekalov.compmatlab2.ui
 
-import com.arekalov.compmatlab2.data.MathConstants
+import com.arekalov.compmatlab2.data.common.MathConstants
+import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.ui.model.Method
+import com.arekalov.compmatlab2.ui.model.Solution
 
 sealed interface State {
     fun isCorrect(): Boolean
 
     data class SingleState(
-        val equation: String? = null,
-        val equationsList: List<String> = MathConstants.SINGLE_EQUATIONS_LIST,
+        val equation: SingleEquation? = null,
+        val equationsList: List<SingleEquation> = MathConstants.SINGLE_EQUATIONS_LIST,
         val a: Double? = null,
         val b: Double? = null,
         val epsilon: Double = 0.005,

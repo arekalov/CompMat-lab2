@@ -1,19 +1,14 @@
 package com.arekalov.compmatlab2.components.sections.input
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import com.arekalov.compmatlab2.common.INPUT_SPECS_STR
 import com.arekalov.compmatlab2.common.SOLVE_BUTTON
-import com.arekalov.compmatlab2.components.widgets.BoldRegularText
-import com.arekalov.compmatlab2.components.widgets.BorderBox
-import com.arekalov.compmatlab2.components.widgets.IconButton
-import com.arekalov.compmatlab2.components.widgets.RegularText
-import com.arekalov.compmatlab2.components.widgets.ToggleEqMode
+import com.arekalov.compmatlab2.components.widgets.*
+import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.data.jsLog
 import com.arekalov.compmatlab2.toSitePalette
-import com.arekalov.compmatlab2.ui.model.State
+import com.arekalov.compmatlab2.ui.State
+import com.arekalov.compmatlab2.ui.model.Method
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -35,7 +30,10 @@ fun InputForm(
     onFirstEquationChanged: (String) -> Unit,
     onSecondEquationChanged: (String) -> Unit,
     onSolvedClicked: () -> Unit,
-    onEquationChanged: (String) -> Unit,
+    onEquationChanged: (SingleEquation) -> Unit,
+    isSingleMode: Boolean,
+    onSingleEqMethodChanged: (String) -> Unit,
+    onSingleModeChanged: (Boolean) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(0.5.cssRem),
@@ -45,23 +43,29 @@ fun InputForm(
     ) {
         val palette = ColorMode.current.toSitePalette()
 
-        var isSingleMode by remember { mutableStateOf(false) }
-
         BoldRegularText(
             text = INPUT_SPECS_STR,
             color = palette.text,
         )
         ToggleEqMode(
             systemSelected = isSingleMode,
-            onChange = {isChecked ->
-                isSingleMode = isChecked
-                onEquationChanged("")
+            onChange = { isChecked ->
+                onSingleModeChanged(!isChecked)
+                onEquationChanged(SingleEquation.stub)
                 onFirstEquationChanged("")
                 onSecondEquationChanged("")
             }
         )
 
         if (isSingleMode) {
+            SingleStateInput(
+                onAChange = onAChanged,
+                onBChange = onBChanged,
+                onEquationChanged = onEquationChanged,
+                state = singleState,
+                onSingleEqMethodChanged = onSingleEqMethodChanged,
+            )
+        } else {
             SystemStateInput(
                 onXChange = onXChanged,
                 onYChange = onYChanged,
@@ -69,17 +73,10 @@ fun InputForm(
                 onSecondEquationChanged = onSecondEquationChanged,
                 state = systemState,
             )
-        } else {
-            SingleStateInput(
-                onAChange = onAChanged,
-                onBChange = onBChanged,
-                onEquationChanged = onEquationChanged,
-                state = singleState,
-            )
         }
 
         IconButton(
-            onClick = onSolvedClicked,
+            onClick = { onSolvedClicked(); jsLog("onSolvedClicked") },
             modifier = Modifier.margin(bottom = 1.cssRem)
         ) {
             BorderBox(
