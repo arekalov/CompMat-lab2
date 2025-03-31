@@ -23,10 +23,12 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-          // Add shared dependencies between JS and JVM here if building a fullstack app
+            implementation("org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose:2.8.2")
+            implementation(libs.kotlinx.coroutines.core)
         }
 
         jsMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
             implementation(libs.compose.runtime)
             implementation(libs.compose.html.core)
 

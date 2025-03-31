@@ -8,8 +8,8 @@ import com.arekalov.compmatlab2.common.GITHUB_URI
 import com.arekalov.compmatlab2.common.PAGE_TITLE
 import com.arekalov.compmatlab2.components.widgets.IconButton
 import com.arekalov.compmatlab2.components.widgets.RegularText
-import com.arekalov.compmatlab2.network.Theme
-import com.arekalov.compmatlab2.network.setTheme
+import com.arekalov.compmatlab2.data.Theme
+import com.arekalov.compmatlab2.data.setTheme
 import com.arekalov.compmatlab2.toSitePalette
 import com.varabyte.kobweb.browser.dom.ElementTarget
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement

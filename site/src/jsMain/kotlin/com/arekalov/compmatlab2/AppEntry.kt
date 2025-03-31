@@ -2,6 +2,8 @@ package com.arekalov.compmatlab2
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import com.arekalov.compmatlab2.data.Theme
+import com.arekalov.compmatlab2.data.setTheme
 import com.varabyte.kobweb.compose.css.ScrollBehavior
 import com.varabyte.kobweb.compose.ui.modifiers.minHeight
 import com.varabyte.kobweb.compose.ui.modifiers.scrollBehavior
@@ -17,6 +19,9 @@ import com.varabyte.kobweb.silk.theme.colors.loadFromLocalStorage
 import com.varabyte.kobweb.silk.theme.colors.saveToLocalStorage
 import com.varabyte.kobweb.silk.theme.colors.systemPreference
 import kotlinx.browser.localStorage
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.jetbrains.compose.web.css.vh
 
 private const val COLOR_MODE_KEY = "compmatlab2:colorMode"

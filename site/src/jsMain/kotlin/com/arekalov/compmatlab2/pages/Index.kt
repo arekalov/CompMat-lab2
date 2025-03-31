@@ -1,75 +1,85 @@
 package com.arekalov.compmatlab2.pages
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import com.arekalov.compmatlab2.common.PAGE_TITLE
 import com.arekalov.compmatlab2.components.layouts.PageLayout
+import com.arekalov.compmatlab2.components.sections.SingleStateInput
+import com.arekalov.compmatlab2.components.sections.SystemStateInput
+import com.arekalov.compmatlab2.components.widgets.BorderBox
 import com.arekalov.compmatlab2.components.widgets.DesmosGraph
-import com.arekalov.compmatlab2.components.widgets.EditText
-import com.arekalov.compmatlab2.components.widgets.IconButton
-import com.arekalov.compmatlab2.components.widgets.StringDropDown
-import com.arekalov.compmatlab2.network.clearGraph
-import com.arekalov.compmatlab2.network.initGraph
-import com.arekalov.compmatlab2.network.setExpression
-import com.varabyte.kobweb.compose.foundation.layout.Column
-import com.varabyte.kobweb.compose.foundation.layout.Spacer
+import com.arekalov.compmatlab2.data.initGraph
+import com.arekalov.compmatlab2.ui.Action
+import com.arekalov.compmatlab2.ui.MainViewModel
+import com.arekalov.compmatlab2.ui.model.State
+import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
-import com.varabyte.kobweb.compose.ui.modifiers.color
-import com.varabyte.kobweb.compose.ui.toAttrs
+import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
 import com.varabyte.kobweb.core.Page
-import com.varabyte.kobweb.silk.components.text.SpanText
-import org.jetbrains.compose.web.css.Color
-import org.jetbrains.compose.web.dom.P
 import org.jetbrains.compose.web.dom.Text
 
 @Page
 @Composable
 fun Index() {
-    PageLayout(title = PAGE_TITLE) {
-        DesmosGr()
-    }
-}
+    val viewModel by remember { mutableStateOf(MainViewModel()) }
+    val state = viewModel.state.collectAsState().value
 
-@Composable
-fun DesmosGr() {
+    val onAChanged = remember { { value: Double? -> viewModel.reduce(Action.ChangeA(value)) } }
+    val onBChanged = remember { { value: Double? -> viewModel.reduce(Action.ChangeB(value)) } }
+    val onEquationChanged = remember { { value: String -> viewModel.reduce(Action.ChangeEquation(value)) } }
 
-    Column {
-        DesmosGraph()
+    val onSolvedClicked = remember { { viewModel.reduce(Action.Calculate) } }
 
-        var eq by remember { mutableStateOf(1) }
+
+    PageLayout(
+        title = PAGE_TITLE
+    ) {
         LaunchedEffect(Unit) {
-            initGraph()
+            initGraph(
+                if (state is State.SingleState) {
+                    state.equation ?: "y=x^2"
+                } else {
+                    "y=x^2"
+                }
+            )
         }
-
-        LaunchedEffect(eq) {
-            setExpression("y=x^$eq")
-        }
-
-        IconButton(onClick = { eq += 1 }) {
-            SpanText("Click for +1")
-        }
-
-        IconButton(onClick = { clearGraph() }) {
-            SpanText("Clear")
-        }
-
-        Spacer()
-
-        var a by remember { mutableStateOf("") }
-        P(
-            attrs = Modifier
-                .color(Color.blue)
-                .toAttrs()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
         ) {
-            Text("a = $a")
-        }
-        EditText(
-            onInput = { a = it },
-            hint = "Enter a"
-        )
-        StringDropDown(
-            onSelect = {},
-            options = listOf("y=x^2+x+2", "y=x^3+12x+2", "y=x^2", "y=xd")
-        )
-    }
+            BorderBox {
+                when (state) {
+                    is State.SystemState -> {
+                        SystemStateInput(
+                            onSolveClicked = onSolvedClicked,
+                            onXChange = { _ -> },
+                            onYChange = { _ -> },
+                            state = state
+                        )
+                    }
 
+                    is State.SingleState -> {
+                        SingleStateInput(
+                            onAChange = onAChanged,
+                            onBChange = onBChanged,
+                            onSolveClicked = onSolvedClicked,
+                            onEquationChanged = onEquationChanged,
+                            state = state,
+                        )
+                    }
+                }
+            }
+            DesmosGraph(
+                width = 60f,
+                height = 40f,
+            )
+            BorderBox {
+                Text("fdf")
+            }
+        }
+    }
 }

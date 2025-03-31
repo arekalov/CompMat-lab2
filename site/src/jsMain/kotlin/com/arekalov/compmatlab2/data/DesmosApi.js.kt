@@ -1,4 +1,4 @@
-package com.arekalov.compmatlab2.network
+package com.arekalov.compmatlab2.data
 
 import kotlinx.browser.document
 import org.w3c.dom.HTMLScriptElement
@@ -7,7 +7,7 @@ const val DESMOS_API_URI = "https://www.desmos.com/api/v1.10/calculator.js?apiKe
 
 private var calculator: dynamic = null
 
-fun initGraph() {
+actual fun initGraph(initEquation: String) {
     val script = document.createElement("script") as HTMLScriptElement
     script.src = DESMOS_API_URI
     script.onload = {
@@ -18,7 +18,7 @@ fun initGraph() {
                 new Desmos.GraphingCalculator(elt, {
                     invertedColors: true,
                     expressions: false,
-                    settingsMenu: false
+                    settingsMenu: false,
                 })
             """
             )
@@ -27,26 +27,32 @@ fun initGraph() {
     document.body?.appendChild(script)
 }
 
-fun clearGraph() {
+actual fun clearGraph() {
     calculator?.setBlank()
 }
 
-fun setExpression(expression: String) {
+actual fun setExpression(expression: String) {
     val expressionId = "graph1"
     calculator?.setExpression(js("{id: expressionId, latex: expression}"))
 }
 
-fun setTheme(theme: Theme) {
+internal fun setTheme(theme: Theme) {
     when (theme) {
         Theme.Dark -> {
             calculator.updateSettings(js("{'invertedColors': true}"))
         }
+
         Theme.Light -> {
             calculator.updateSettings(js("{'invertedColors': false}"))
         }
     }
 }
 
-enum class Theme {
+internal enum class Theme {
     Dark, Light
 }
+
+actual fun jsLog(value: String) {
+    js("console.log(value)")
+}
+

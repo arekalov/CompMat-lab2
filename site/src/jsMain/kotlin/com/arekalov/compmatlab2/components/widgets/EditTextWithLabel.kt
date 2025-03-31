@@ -9,6 +9,7 @@ import org.jetbrains.compose.web.css.cssRem
 
 @Composable
 fun EditTextWithLabel(
+    text: String = "",
     onInput: (String) -> Unit,
     hint: String = "",
     labelText: String = "",
@@ -23,6 +24,7 @@ fun EditTextWithLabel(
             RegularText(text = labelText)
         }
         EditText(
+            text = text,
             onInput = onInput,
             hint = hint,
         )
