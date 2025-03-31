@@ -9,6 +9,7 @@ import com.arekalov.compmatlab2.data.*
 import com.arekalov.compmatlab2.data.common.MathConstants
 import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
+import com.arekalov.compmatlab2.data.singlesolvingmethods.chordsMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
 import com.arekalov.compmatlab2.ui.model.Solution
@@ -62,6 +63,12 @@ class MainViewModel : ViewModel() {
             _singleState.update {
                 it.copy(
                     solution = singleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                )
+            }
+        } else if (singleState.value.method == Method.Chords) {
+            _singleState.update {
+                it.copy(
+                    solution = chordsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
                 )
             }
         }

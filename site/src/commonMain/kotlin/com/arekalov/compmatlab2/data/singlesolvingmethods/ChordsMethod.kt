@@ -8,8 +8,7 @@ import kotlin.math.abs
 private const val A = -1_000_000.0
 private const val B = 1_000_000.0
 private const val MAX_ITERATIONS = 100
-
-fun singleIterationsMethod(params: SingleSolvingParams): Result<Solution> = runCatching {
+fun chordsMethod(params: SingleSolvingParams): Result<Solution> = runCatching {
     var currentA = params.a ?: A
     var currentB = params.b ?: B
 
@@ -17,28 +16,38 @@ fun singleIterationsMethod(params: SingleSolvingParams): Result<Solution> = runC
         throw IllegalArgumentException("Error: A and B are the same")
     }
 
-    var iterations = 0
-    var xI = (currentA + currentB) / 2 // Средняя точка как начальное приближение
     val f = params.equation.f
-    val phi = params.equation.phi
+    var iterations = 0
+    var x = 0.0
+    var xPred = Double.MAX_VALUE
 
     for (i in 0..MAX_ITERATIONS) {
-        val xIPlus1 = phi(xI)
-        val delta = abs(xIPlus1 - xI)
+        x = nextVal(currentA, currentB, f)
 
-        if (delta < params.epsilon) {
+        if (abs(xPred - x) < params.epsilon) {
             break
         }
 
-        xI = xIPlus1
         iterations++
+
+        // Определяем, које значение обновлять
+        if (f(currentA) * f(x) < 0) {
+            currentB = x
+        } else {
+            currentA = x
+        }
+
+        xPred = x
     }
 
     Solution(
-        answer = xI,
-        functionResult = f(xI),
-        method = Method.SimpleIterations,
+        answer = x,
+        functionResult = f(x),
+        method = Method.Chords,
         iterationsCount = iterations,
     )
 }
 
+private fun nextVal(a: Double, b: Double, f: (Double) -> Double): Double {
+    return (a * f(b) - b * f(a)) / (f(b) - f(a))
+}
