@@ -31,7 +31,7 @@ object SitePalettes {
         text = Color.rgb(10, 10, 10),
         brand = SitePalette.Brand(
             primary = Color.rgb(0x3C83EF),
-            accent = Color.rgb(0xFCBA03),
+            accent = Color.rgb(0xF3DB5B),
         )
     )
     val dark = SitePalette(

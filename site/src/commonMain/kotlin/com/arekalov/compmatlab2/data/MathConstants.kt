@@ -12,6 +12,16 @@ class MathConstants() {
             "y=x^3-2.56x^2-1.325x+4.395"
         )
 
-        val SINGLE_METHOD_LIST = listOf<Method>(Method.Newton, Method.SimpleIterations, Method.HalfDivision)
+        val SYSTEM_EQUATIONS_LIST = listOf(
+            "Select equation",
+            "y=x^3-4.5x^2-9.21x-0.383",
+            "y=x^3-4.81x^2-17.37x+5.38",
+            "y=x^3-2.56x^2-1.325x+4.395"
+        )
+
+        val SINGLE_METHOD_LIST =
+            listOf<Method>(Method.Chords, Method.Newton, Method.SimpleIterations, Method.HalfDivision)
+
+        val SYSTEM_METHOD_LIST = listOf<Method>(Method.SimpleIterations, Method.Newton)
     }
 }

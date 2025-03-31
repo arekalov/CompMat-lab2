@@ -8,14 +8,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import com.arekalov.compmatlab2.common.PAGE_TITLE
 import com.arekalov.compmatlab2.components.layouts.PageLayout
-import com.arekalov.compmatlab2.components.sections.SingleStateInput
-import com.arekalov.compmatlab2.components.sections.SystemStateInput
+import com.arekalov.compmatlab2.components.sections.input.InputForm
 import com.arekalov.compmatlab2.components.widgets.BorderBox
 import com.arekalov.compmatlab2.components.widgets.DesmosGraph
 import com.arekalov.compmatlab2.data.initGraph
-import com.arekalov.compmatlab2.ui.Action
+import com.arekalov.compmatlab2.ui.SingleAction
 import com.arekalov.compmatlab2.ui.MainViewModel
-import com.arekalov.compmatlab2.ui.model.State
+import com.arekalov.compmatlab2.ui.SystemAction
 import com.varabyte.kobweb.compose.foundation.layout.Row
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.fillMaxWidth
@@ -26,52 +25,44 @@ import org.jetbrains.compose.web.dom.Text
 @Composable
 fun Index() {
     val viewModel by remember { mutableStateOf(MainViewModel()) }
-    val state = viewModel.state.collectAsState().value
+    val singleState = viewModel.singleState.collectAsState().value
+    val systemState = viewModel.systemState.collectAsState().value
 
-    val onAChanged = remember { { value: Double? -> viewModel.reduce(Action.ChangeA(value)) } }
-    val onBChanged = remember { { value: Double? -> viewModel.reduce(Action.ChangeB(value)) } }
-    val onEquationChanged = remember { { value: String -> viewModel.reduce(Action.ChangeEquation(value)) } }
+    val onAChanged = remember { { value: Double? -> viewModel.reduce(SingleAction.ChangeA(value)) } }
+    val onBChanged = remember { { value: Double? -> viewModel.reduce(SingleAction.ChangeB(value)) } }
+    val onEquationChanged = remember { { value: String -> viewModel.reduce(SingleAction.ChangeEquation(value)) } }
 
-    val onSolvedClicked = remember { { viewModel.reduce(Action.Calculate) } }
+    val onXChanged = remember { { value: Double? -> viewModel.reduce(SystemAction.ChangeX(value)) } }
+    val onYChanged = remember { { value: Double? -> viewModel.reduce(SystemAction.ChangeY(value)) } }
+    val onFirstEquationChanged =
+        remember { { value: String -> viewModel.reduce(SystemAction.ChangeFirstEquation(value)) } }
+    val onSecondEquationChanged =
+        remember { { value: String -> viewModel.reduce(SystemAction.ChangeSecondEquation(value)) } }
 
+    val onSolvedClicked = remember { { viewModel.reduce(SingleAction.Calculate) } }
 
     PageLayout(
         title = PAGE_TITLE
     ) {
         LaunchedEffect(Unit) {
-            initGraph(
-                if (state is State.SingleState) {
-                    state.equation ?: "y=x^2"
-                } else {
-                    "y=x^2"
-                }
-            )
+            initGraph()
         }
         Row(
-            modifier = Modifier
-                .fillMaxWidth()
+            modifier = Modifier.fillMaxWidth()
         ) {
             BorderBox {
-                when (state) {
-                    is State.SystemState -> {
-                        SystemStateInput(
-                            onSolveClicked = onSolvedClicked,
-                            onXChange = { _ -> },
-                            onYChange = { _ -> },
-                            state = state
-                        )
-                    }
-
-                    is State.SingleState -> {
-                        SingleStateInput(
-                            onAChange = onAChanged,
-                            onBChange = onBChanged,
-                            onSolveClicked = onSolvedClicked,
-                            onEquationChanged = onEquationChanged,
-                            state = state,
-                        )
-                    }
-                }
+                InputForm(
+                    singleState = singleState,
+                    systemState = systemState,
+                    onAChanged = onAChanged,
+                    onBChanged = onBChanged,
+                    onSolvedClicked = onSolvedClicked,
+                    onEquationChanged = onEquationChanged,
+                    onFirstEquationChanged = onFirstEquationChanged,
+                    onSecondEquationChanged = onSecondEquationChanged,
+                    onXChanged = onXChanged,
+                    onYChanged = onYChanged,
+                )
             }
             DesmosGraph(
                 width = 60f,

@@ -24,10 +24,12 @@ sealed interface State {
     data class SystemState(
         val equationFirst: String? = null,
         val equationSecond: String? = null,
+        val equationsList: List<String> = MathConstants.SYSTEM_EQUATIONS_LIST,
         val x: Double? = null,
         val y: Double? = null,
         val epsilon: Double = 0.005,
         val method: Method = Method.Newton,
+        val methodsList: List<Method> = MathConstants.SYSTEM_METHOD_LIST,
         val solution: Solution? = null,
         val error: String? = null,
     ) : State {
@@ -42,7 +44,7 @@ enum class Mode {
     Single, System,
 }
 
-fun State.SingleState.toDesmosExpression(): String {
+fun toDesmosExpression(a: Double?, b: Double?, equation: String?): String {
     val expressionEnd = if (a != null && b != null) {
         """\left\{$a\le x\le$b\right\}"""
     } else if (a != null) {
