@@ -27,7 +27,8 @@ sealed interface State {
     data class SystemState(
         val equationFirst: String? = null,
         val equationSecond: String? = null,
-        val equationsList: List<String> = MathConstants.SYSTEM_EQUATIONS_LIST,
+        val equationsListFirst: List<SingleEquation> = MathConstants.SYSTEM_EQUATIONS_FIRST_LIST,
+        val equationsListSecond: List<SingleEquation> = MathConstants.SYSTEM_EQUATIONS_SECOND_LIST,
         val x: Double? = null,
         val y: Double? = null,
         val epsilon: Double = 0.005,

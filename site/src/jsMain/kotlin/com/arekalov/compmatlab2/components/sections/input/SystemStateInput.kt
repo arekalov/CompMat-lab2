@@ -2,6 +2,7 @@ package com.arekalov.compmatlab2.components.sections.input
 
 import androidx.compose.runtime.*
 import com.arekalov.compmatlab2.common.*
+import com.arekalov.compmatlab2.components.widgets.DropDownMenuStringWithLabel
 import com.arekalov.compmatlab2.components.widgets.DropDownMenuWithLabel
 import com.arekalov.compmatlab2.components.widgets.EditTextWithLabel
 import com.arekalov.compmatlab2.ui.State
@@ -39,7 +40,7 @@ fun SystemStateInput(
                 y = ""
                 onFirstEquationChanged(value)
             },
-            options = state.equationsList,
+            options = state.equationsListFirst,
             labelText = EQUATION_STR
         )
         DropDownMenuWithLabel(
@@ -48,7 +49,7 @@ fun SystemStateInput(
                 y = ""
                 onSecondEquationChanged(value)
             },
-            options = state.equationsList,
+            options = state.equationsListSecond,
             labelText = EQUATION_STR
         )
         EditTextWithLabel(
@@ -69,9 +70,9 @@ fun SystemStateInput(
             hint = ENTER_Y_STR,
             labelText = Y_LABEL_STR,
         )
-        DropDownMenuWithLabel(
+        DropDownMenuStringWithLabel(
             onSelect = { sting -> },
-            options = state.methodsList.map { it.name },
+            options = state.methodsList.map { it.toString() },
             labelText = METHOD_LABEL_STR
         )
     }

@@ -22,22 +22,67 @@ class MathConstants() {
             },
             SingleEquation(
                 string = "y=1.23\\sin\\left(x+1\\right)",
+                desmos = "y=1.23\\sin\\left(x+1\\right)",
                 proizv = { x: Double -> (411 * x.pow(2) - 193 * x) / 764 },
                 phi = { x: Double -> (x.pow(3) - 4.5 * x.pow(2) - 0.383) / 9.21 }) { x ->
                 1.23 * sin(x + 1)
             }
         )
 
-        val SYSTEM_EQUATIONS_LIST = listOf(
-            "Select equation",
-            "y=x^3-4.5x^2-9.21x-0.383",
-            "y=x^3-4.81x^2-17.37x+5.38",
-            "y=x^3-2.56x^2-1.325x+4.395"
+        val SYSTEM_EQUATIONS_FIRST_LIST = listOf<SingleEquation>(
+            SingleEquation.stub,
+            SingleEquation(
+                string = "x+siny=-0.4",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "x+\\sin y=-0.4"
+            ),
+            SingleEquation(
+                string = "siny+2x=2",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "\\sin y+2x=2"
+            ),
+            SingleEquation(
+                string = "sin(x-1)+y=1.5",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "\\sin(x-1)+y=1.5"
+            ),
         )
 
-        val SINGLE_METHOD_LIST =
-            listOf<Method>(Method.Chords, Method.SimpleIterations, Method.HalfDivision)
+        val SYSTEM_EQUATIONS_SECOND_LIST = listOf<SingleEquation>(
+            SingleEquation.stub,
+            SingleEquation(
+                string = "2y-cos(x-1)=0.7",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "2y-\\cos(x-1)=0.7"
+            ),
+            SingleEquation(
+                string = "y+cos(x-1)=0.7",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "y+\\cos(x-1)=0.7"
+            ),
+            SingleEquation(
+                string = "2y-cos(x-1)=0.7",
+                proizv = { _ -> .0 },
+                phi = { _ -> .0 },
+                f = { _ -> .0 },
+                desmos = "x-\\sin(y+1)=1"
+            ),
+        )
 
-        val SYSTEM_METHOD_LIST = listOf<Method>(Method.SimpleIterations, Method.Newton)
+
+        val SINGLE_METHOD_LIST =
+            listOf<Method>(Method.Select_method, Method.Chords, Method.SimpleIterations, Method.HalfDivision)
+
+        val SYSTEM_METHOD_LIST = listOf<Method>(Method.Select_method, Method.SimpleIterations)
     }
 }

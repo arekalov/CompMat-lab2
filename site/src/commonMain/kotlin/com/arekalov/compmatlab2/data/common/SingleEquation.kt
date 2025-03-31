@@ -2,6 +2,7 @@ package com.arekalov.compmatlab2.data.common
 
 data class SingleEquation(
     val string: String,
+    val desmos: String = string,
     val proizv: (Double) -> Double,
     val phi: (Double) -> Double,
     val f: (Double) -> Double,
