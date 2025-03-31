@@ -8,9 +8,9 @@ import kotlinx.coroutines.flow.update
 import com.arekalov.compmatlab2.data.*
 import com.arekalov.compmatlab2.data.common.MathConstants
 import com.arekalov.compmatlab2.data.common.SingleEquation
-import com.arekalov.compmatlab2.data.models.SingleSolvingParams
 import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
 import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
+import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
 import com.arekalov.compmatlab2.ui.model.Solution
 
 class MainViewModel : ViewModel() {
@@ -55,6 +55,13 @@ class MainViewModel : ViewModel() {
             _singleState.update {
                 it.copy(
                     solution = halfDivisionMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                )
+            }
+        } else if (singleState.value.method == Method.SimpleIterations) {
+            jsLog("SimpleIterations")
+            _singleState.update {
+                it.copy(
+                    solution = singleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
                 )
             }
         }

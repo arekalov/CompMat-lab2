@@ -5,4 +5,8 @@ data class Solution(
     val functionResult: Double,
     val method: Method,
     val iterationsCount: Int? = null,
-)
+) {
+    override fun toString(): String {
+        return "Sold by $method method \nanswer: $answer\nfunctionResult: $functionResult\niterationsCount: $iterationsCount"
+    }
+}
