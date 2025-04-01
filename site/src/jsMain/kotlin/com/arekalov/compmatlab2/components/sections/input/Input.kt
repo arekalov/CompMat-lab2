@@ -27,8 +27,8 @@ fun InputForm(
     onBChanged: (Double?) -> Unit,
     onXChanged: (Double?) -> Unit,
     onYChanged: (Double?) -> Unit,
-    onFirstEquationChanged: (String) -> Unit,
-    onSecondEquationChanged: (String) -> Unit,
+    onFirstEquationChanged: (SingleEquation) -> Unit,
+    onSecondEquationChanged: (SingleEquation) -> Unit,
     onSolvedClicked: () -> Unit,
     onEquationChanged: (SingleEquation) -> Unit,
     isSingleMode: Boolean,
@@ -52,8 +52,8 @@ fun InputForm(
             onChange = { isChecked ->
                 onSingleModeChanged(!isChecked)
                 onEquationChanged(SingleEquation.stub)
-                onFirstEquationChanged("")
-                onSecondEquationChanged("")
+                onFirstEquationChanged(SingleEquation.stub)
+                onSecondEquationChanged(SingleEquation.stub)
             }
         )
 

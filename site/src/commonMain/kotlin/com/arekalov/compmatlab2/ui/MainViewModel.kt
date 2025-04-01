@@ -9,10 +9,12 @@ import com.arekalov.compmatlab2.data.*
 import com.arekalov.compmatlab2.data.common.MathConstants
 import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
+import com.arekalov.compmatlab2.data.models.toSystemSolvingParams
 import com.arekalov.compmatlab2.data.singlesolvingmethods.chordsMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
-import com.arekalov.compmatlab2.ui.model.Solution
+import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
+import com.arekalov.compmatlab2.ui.model.SingleSolution
 
 class MainViewModel : ViewModel() {
     private val _singleState =
@@ -117,26 +119,24 @@ class MainViewModel : ViewModel() {
 
     // For SystemState
     private fun onSystemCalculateReceived() {
-        _systemState.update {
-            it.copy(
-                solution = Solution(
-                    systemState.value.x ?: 0.0,
-                    functionResult = systemState.value.y ?: 0.0,
-                    iterationsCount = 0,
-                    method = Method.HalfDivision,
+        if (singleState.value.method == Method.SimpleIterations) {
+            jsLog("SimpleIterations")
+            _systemState.update {
+                it.copy(
+                    solution = simpleIterationsSystem(params = systemState.value.toSystemSolvingParams()).getOrNull()
                 )
-            )
+            }
         }
     }
 
-    private fun onChangeFirstEquation(equation: String) {
+    private fun onChangeFirstEquation(equation: SingleEquation) {
         _systemState.update {
             it.copy(equationFirst = equation)
         }
         updateSystemFirstExpression()
     }
 
-    private fun onChangeSecondEquation(equation: String) {
+    private fun onChangeSecondEquation(equation: SingleEquation) {
         _systemState.update {
             it.copy(equationSecond = equation)
         }
@@ -164,7 +164,7 @@ class MainViewModel : ViewModel() {
             toDesmosExpression(
                 a = systemState.value.x,
                 b = systemState.value.y,
-                equation = systemState.value.equationFirst
+                equation = systemState.value.equationFirst?.desmos ?: "",
             ), FIRST_EQUATION
         )
     }
@@ -174,8 +174,9 @@ class MainViewModel : ViewModel() {
             toDesmosExpression(
                 a = systemState.value.x,
                 b = systemState.value.y,
-                equation = systemState.value.equationSecond
+                equation = systemState.value.equationSecond?.desmos ?: "",
             ), SECOND_EQUATION
         )
     }
 }
+

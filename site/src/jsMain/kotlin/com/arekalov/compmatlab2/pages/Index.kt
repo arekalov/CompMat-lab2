@@ -45,9 +45,9 @@ fun Index() {
     val onXChanged = remember { { value: Double? -> viewModel.reduce(SystemAction.ChangeX(value)) } }
     val onYChanged = remember { { value: Double? -> viewModel.reduce(SystemAction.ChangeY(value)) } }
     val onFirstEquationChanged =
-        remember { { value: String -> viewModel.reduce(SystemAction.ChangeFirstEquation(value)) } }
+        remember { { value: SingleEquation -> viewModel.reduce(SystemAction.ChangeFirstEquation(value)) } }
     val onSecondEquationChanged =
-        remember { { value: String -> viewModel.reduce(SystemAction.ChangeSecondEquation(value)) } }
+        remember { { value: SingleEquation -> viewModel.reduce(SystemAction.ChangeSecondEquation(value)) } }
 
     val onSolvedSystemClicked = remember { { viewModel.reduce(SystemAction.Calculate) } }
     val onSolvedSingleClicked = remember { { viewModel.reduce(SingleAction.Calculate) } }

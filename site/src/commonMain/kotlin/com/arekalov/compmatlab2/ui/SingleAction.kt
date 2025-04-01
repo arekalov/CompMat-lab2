@@ -22,9 +22,9 @@ sealed class SingleAction : Action {
 sealed class SystemAction : Action {
     data object Calculate : SystemAction()
 
-    data class ChangeFirstEquation(val equation: String) : SystemAction()
+    data class ChangeFirstEquation(val equation: SingleEquation) : SystemAction()
 
-    data class ChangeSecondEquation(val equation: String) : SystemAction()
+    data class ChangeSecondEquation(val equation: SingleEquation) : SystemAction()
 
     data class ChangeX(val x: Double?) : SystemAction()
 

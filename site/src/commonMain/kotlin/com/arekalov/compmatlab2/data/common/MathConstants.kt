@@ -1,6 +1,7 @@
 package com.arekalov.compmatlab2.data.common
 
 import com.arekalov.compmatlab2.ui.model.Method
+import kotlin.math.cos
 import kotlin.math.pow
 import kotlin.math.sin
 
@@ -32,23 +33,23 @@ class MathConstants() {
         val SYSTEM_EQUATIONS_FIRST_LIST = listOf<SingleEquation>(
             SingleEquation.stub,
             SingleEquation(
-                string = "x+siny=-0.4",
+                string = "x+\\sin y=-0.4",
                 proizv = { _ -> .0 },
-                phi = { _ -> .0 },
+                phi = { y -> - sin(y) - 0.4 },
                 f = { _ -> .0 },
                 desmos = "x+\\sin y=-0.4"
             ),
             SingleEquation(
-                string = "siny+2x=2",
+                string = "\\sin y+2x=2",
                 proizv = { _ -> .0 },
-                phi = { _ -> .0 },
+                phi = { y -> (2- sin(y)) / 2 },
                 f = { _ -> .0 },
                 desmos = "\\sin y+2x=2"
             ),
             SingleEquation(
-                string = "sin(x-1)+y=1.5",
+                string = "\\sin(x-1)+y=1.5",
                 proizv = { _ -> .0 },
-                phi = { _ -> .0 },
+                phi = { x -> 1.5 - sin(x - 1) },
                 f = { _ -> .0 },
                 desmos = "\\sin(x-1)+y=1.5"
             ),
@@ -57,23 +58,23 @@ class MathConstants() {
         val SYSTEM_EQUATIONS_SECOND_LIST = listOf<SingleEquation>(
             SingleEquation.stub,
             SingleEquation(
-                string = "2y-cos(x-1)=0.7",
-                proizv = { _ -> .0 },
+                string = "2y-\\cos(x-1)=0.7",
+                proizv = { x -> (0.7 + cos(x - 1)) / 2 },
                 phi = { _ -> .0 },
                 f = { _ -> .0 },
                 desmos = "2y-\\cos(x-1)=0.7"
             ),
             SingleEquation(
-                string = "y+cos(x-1)=0.7",
+                string = "y+\\cos(x-1)=0.7",
                 proizv = { _ -> .0 },
-                phi = { _ -> .0 },
+                phi = { x -> 0.7 - cos(x - 1) },
                 f = { _ -> .0 },
                 desmos = "y+\\cos(x-1)=0.7"
             ),
             SingleEquation(
-                string = "2y-cos(x-1)=0.7",
+                string = "x-\\sin(y+1)=1",
                 proizv = { _ -> .0 },
-                phi = { _ -> .0 },
+                phi = { x -> (cos(x - 1) + 0.7) / 2 },
                 f = { _ -> .0 },
                 desmos = "x-\\sin(y+1)=1"
             ),

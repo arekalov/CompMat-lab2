@@ -5,6 +5,7 @@ import com.arekalov.compmatlab2.common.*
 import com.arekalov.compmatlab2.components.widgets.DropDownMenuStringWithLabel
 import com.arekalov.compmatlab2.components.widgets.DropDownMenuWithLabel
 import com.arekalov.compmatlab2.components.widgets.EditTextWithLabel
+import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.ui.State
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
@@ -20,8 +21,8 @@ fun SystemStateInput(
     state: State.SystemState,
     onXChange: (Double?) -> Unit,
     onYChange: (Double?) -> Unit,
-    onFirstEquationChanged: (String) -> Unit,
-    onSecondEquationChanged: (String) -> Unit,
+    onFirstEquationChanged: (SingleEquation) -> Unit,
+    onSecondEquationChanged: (SingleEquation) -> Unit,
 
 ) {
     var x by remember { mutableStateOf("") }
@@ -38,7 +39,7 @@ fun SystemStateInput(
             onSelect = { value ->
                 x = ""
                 y = ""
-                onFirstEquationChanged(value)
+                onFirstEquationChanged(state.equationsListFirst.find { it.string == value }!!)
             },
             options = state.equationsListFirst,
             labelText = EQUATION_STR
@@ -47,7 +48,7 @@ fun SystemStateInput(
             onSelect = { value ->
                 x = ""
                 y = ""
-                onSecondEquationChanged(value)
+                onSecondEquationChanged(state.equationsListSecond.find { it.string == value }!!)
             },
             options = state.equationsListSecond,
             labelText = EQUATION_STR

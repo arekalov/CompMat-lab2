@@ -3,7 +3,8 @@ package com.arekalov.compmatlab2.ui
 import com.arekalov.compmatlab2.data.common.MathConstants
 import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.ui.model.Method
-import com.arekalov.compmatlab2.ui.model.Solution
+import com.arekalov.compmatlab2.ui.model.SingleSolution
+import com.arekalov.compmatlab2.ui.model.SystemSolution
 
 sealed interface State {
     fun isCorrect(): Boolean
@@ -16,7 +17,7 @@ sealed interface State {
         val epsilon: Double = 0.005,
         val method: Method = Method.SimpleIterations,
         val methodsList: List<Method> = MathConstants.SINGLE_METHOD_LIST,
-        val solution: Solution? = null,
+        val solution: SingleSolution? = null,
         val error: String? = null,
     ) : State {
         override fun isCorrect(): Boolean {
@@ -25,8 +26,8 @@ sealed interface State {
     }
 
     data class SystemState(
-        val equationFirst: String? = null,
-        val equationSecond: String? = null,
+        val equationFirst: SingleEquation? = null,
+        val equationSecond: SingleEquation? = null,
         val equationsListFirst: List<SingleEquation> = MathConstants.SYSTEM_EQUATIONS_FIRST_LIST,
         val equationsListSecond: List<SingleEquation> = MathConstants.SYSTEM_EQUATIONS_SECOND_LIST,
         val x: Double? = null,
@@ -34,7 +35,7 @@ sealed interface State {
         val epsilon: Double = 0.005,
         val method: Method = Method.Newton,
         val methodsList: List<Method> = MathConstants.SYSTEM_METHOD_LIST,
-        val solution: Solution? = null,
+        val solution: SystemSolution? = null,
         val error: String? = null,
     ) : State {
         override fun isCorrect(): Boolean {

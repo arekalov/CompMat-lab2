@@ -2,13 +2,13 @@ package com.arekalov.compmatlab2.data.singlesolvingmethods
 
 import com.arekalov.compmatlab2.data.models.SingleSolvingParams
 import com.arekalov.compmatlab2.ui.model.Method
-import com.arekalov.compmatlab2.ui.model.Solution
+import com.arekalov.compmatlab2.ui.model.SingleSolution
 import kotlin.math.abs
 
 private const val A = -1_000_000.0
 private const val B = 1_000_000.0
 private const val MAX_ITERATIONS = 100
-fun chordsMethod(params: SingleSolvingParams): Result<Solution> = runCatching {
+fun chordsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
     var currentA = params.a ?: A
     var currentB = params.b ?: B
 
@@ -40,7 +40,7 @@ fun chordsMethod(params: SingleSolvingParams): Result<Solution> = runCatching {
         xPred = x
     }
 
-    Solution(
+    SingleSolution(
         answer = x,
         functionResult = f(x),
         method = Method.Chords,
