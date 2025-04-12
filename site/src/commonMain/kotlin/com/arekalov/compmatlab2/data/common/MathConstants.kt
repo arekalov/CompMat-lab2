@@ -84,6 +84,6 @@ class MathConstants() {
         val SINGLE_METHOD_LIST =
             listOf<Method>(Method.Select_method, Method.Newton, Method.SimpleIterations, Method.HalfDivision)
 
-        val SYSTEM_METHOD_LIST = listOf<Method>(Method.Select_method, Method.SimpleIterations)
+        val SYSTEM_METHOD_LIST = listOf<Method>(Method.Select_method, Method.Newton, Method.SimpleIterations)
     }
 }

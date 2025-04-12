@@ -12,6 +12,7 @@ import com.arekalov.compmatlab2.data.setExpression
 import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.newtonsMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.singleSimpleIterationsMethod
+import com.arekalov.compmatlab2.data.systemsolvingmethods.newtonSystem
 import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
 import com.arekalov.compmatlab2.ui.model.Method
 import com.arekalov.compmatlab2.ui.model.SingleSolution
@@ -149,11 +150,18 @@ class MainViewModel : ViewModel() {
 
     // For SystemState
     private fun onSystemCalculateReceived() {
-        if (singleState.value.method == Method.SimpleIterations) {
+        if (systemState.value.method == Method.SimpleIterations) {
             jsLog("SimpleIterations")
             _systemState.update {
                 it.copy(
                     solution = simpleIterationsSystem(params = systemState.value.toSystemSolvingParams()).getOrNull()
+                )
+            }
+        } else if (systemState.value.method == Method.Newton) {
+            jsLog("Newton")
+            _systemState.update {
+                it.copy(
+                    solution = newtonSystem(params = systemState.value.toSystemSolvingParams()).getOrNull()
                 )
             }
         }
