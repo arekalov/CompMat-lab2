@@ -33,7 +33,7 @@ fun SingleEquationDropDown(
             }
     ) {
         options.forEach {
-            Option(value = it.desmos) {
+            Option(value = it.string) {
                 Text(it.string)
             }
         }

@@ -141,7 +141,7 @@ class MainViewModel : ViewModel() {
             toDesmosExpression(
                 a = singleState.value.a,
                 b = singleState.value.b,
-                equation = singleState.value.equation?.string
+                equation = singleState.value.equation?.desmos ?: singleState.value.equation?.string
             ), FIRST_EQUATION
         )
     }
