@@ -48,6 +48,8 @@ fun Index() {
         remember { { value: SingleEquation -> viewModel.reduce(SystemAction.ChangeFirstEquation(value)) } }
     val onSecondEquationChanged =
         remember { { value: SingleEquation -> viewModel.reduce(SystemAction.ChangeSecondEquation(value)) } }
+    val onSystemMethodChanged =
+        remember { { method: Method -> viewModel.reduce(SystemAction.ChangeMethod(method)) } }
 
     val onSolvedSystemClicked = remember { { viewModel.reduce(SystemAction.Calculate) } }
     val onSolvedSingleClicked = remember { { viewModel.reduce(SingleAction.Calculate) } }
@@ -82,6 +84,7 @@ fun Index() {
                     isSingleMode = isSingleMode,
                     onSingleModeChanged = { value -> isSingleMode = value },
                     onSingleEqMethodChanged = onSingleMethodChanged,
+                    onSystemMethodChanged = onSystemMethodChanged,
                 )
             }
             DesmosGraph(

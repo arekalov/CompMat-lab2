@@ -34,6 +34,7 @@ fun InputForm(
     isSingleMode: Boolean,
     onSingleEqMethodChanged: (String) -> Unit,
     onSingleModeChanged: (Boolean) -> Unit,
+    onSystemMethodChanged: (Method) -> Unit,
 ) {
     Column(
         verticalArrangement = Arrangement.spacedBy(0.5.cssRem),
@@ -77,6 +78,7 @@ fun InputForm(
                 onFirstEquationChanged = onFirstEquationChanged,
                 onSecondEquationChanged = onSecondEquationChanged,
                 state = systemState,
+                onMethodChanged = onSystemMethodChanged,
             )
         }
 

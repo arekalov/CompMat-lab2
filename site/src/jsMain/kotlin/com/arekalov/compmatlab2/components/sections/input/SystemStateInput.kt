@@ -7,6 +7,7 @@ import com.arekalov.compmatlab2.components.widgets.DropDownMenuWithLabel
 import com.arekalov.compmatlab2.components.widgets.EditTextWithLabel
 import com.arekalov.compmatlab2.data.common.SingleEquation
 import com.arekalov.compmatlab2.ui.State
+import com.arekalov.compmatlab2.ui.model.Method
 import com.varabyte.kobweb.compose.foundation.layout.Arrangement
 import com.varabyte.kobweb.compose.foundation.layout.Column
 import com.varabyte.kobweb.compose.ui.Alignment
@@ -23,7 +24,7 @@ fun SystemStateInput(
     onYChange: (Double?) -> Unit,
     onFirstEquationChanged: (SingleEquation) -> Unit,
     onSecondEquationChanged: (SingleEquation) -> Unit,
-
+    onMethodChanged: (Method) -> Unit,
 ) {
     var x by remember { mutableStateOf("") }
     var y by remember { mutableStateOf("") }
@@ -72,8 +73,10 @@ fun SystemStateInput(
             labelText = Y_LABEL_STR,
         )
         DropDownMenuStringWithLabel(
-            onSelect = { sting -> },
-            options = state.methodsList.map { it.toString() },
+            onSelect = { methodName -> 
+                onMethodChanged(Method.valueOf(methodName))
+            },
+            options = state.methodsList.map { it.name },
             labelText = METHOD_LABEL_STR
         )
     }
