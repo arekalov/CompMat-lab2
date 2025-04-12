@@ -11,7 +11,7 @@ import com.arekalov.compmatlab2.data.models.toSystemSolvingParams
 import com.arekalov.compmatlab2.data.setExpression
 import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.newtonsMethod
-import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
+import com.arekalov.compmatlab2.data.singlesolvingmethods.singleSimpleIterationsMethod
 import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
 import com.arekalov.compmatlab2.ui.model.Method
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,7 +66,7 @@ class MainViewModel : ViewModel() {
             jsLog("SimpleIterations")
             _singleState.update {
                 it.copy(
-                    solution = halfDivisionMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                    solution = singleSimpleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
                 )
             }
         } else if (singleState.value.method == Method.Newton) {

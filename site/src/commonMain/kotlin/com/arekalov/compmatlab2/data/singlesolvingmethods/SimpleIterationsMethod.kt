@@ -9,7 +9,7 @@ private const val A = -1_000_000.0
 private const val B = 1_000_000.0
 private const val MAX_ITERATIONS = 100
 
-fun singleIterationsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
+fun singleSimpleIterationsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
     var currentA = params.a ?: A
     var currentB = params.b ?: B
 

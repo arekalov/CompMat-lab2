@@ -11,21 +11,21 @@ class MathConstants() {
             SingleEquation.stub,
             SingleEquation(
                 string = "y=2.74x^3-1.93x^2-15.28x-3.72",
-                proizv = { x: Double -> ((100 * (x.pow(2) - 3 * x)) / 307) },
+                proizv = { x: Double -> 8.22 * x.pow(2) - 3.86 * x - 15.28 },
                 phi = { x: Double -> (2.74 * x.pow(3) - 1.93 * x.pow(2) - 3.72) / 15.28 }) { x ->
                 2.74 * x.pow(3) - 1.93 * x.pow(2) - 15.28 * x - 3.72
             },
             SingleEquation(
                 string = "y=x^3-4.5x^2-9.21x-0.383",
-                proizv = { x: Double -> (411 * x.pow(2) - 193 * x) / 764 },
+                proizv = { x: Double -> 3 * x.pow(2) - 9 * x - 9.21 },
                 phi = { x: Double -> (x.pow(3) - 4.5 * x.pow(2) - 0.383) / 9.21 }) { x ->
                 x.pow(3) - 4.5 * x.pow(2) - 9.21 * x - 0.383
             },
             SingleEquation(
                 string = "y=1.23\\sin\\left(x+1\\right)",
                 desmos = "y=1.23\\sin\\left(x+1\\right)",
-                proizv = { x: Double -> (411 * x.pow(2) - 193 * x) / 764 },
-                phi = { x: Double -> (x.pow(3) - 4.5 * x.pow(2) - 0.383) / 9.21 }) { x ->
+                proizv = { x: Double -> 1.23 * cos(x + 1) },
+                phi = { x: Double -> x }) { x ->
                 1.23 * sin(x + 1)
             }
         )
