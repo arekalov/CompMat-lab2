@@ -14,6 +14,7 @@ import com.arekalov.compmatlab2.data.singlesolvingmethods.newtonsMethod
 import com.arekalov.compmatlab2.data.singlesolvingmethods.singleSimpleIterationsMethod
 import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
 import com.arekalov.compmatlab2.ui.model.Method
+import com.arekalov.compmatlab2.ui.model.SingleSolution
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
@@ -57,13 +58,36 @@ class MainViewModel : ViewModel() {
         jsLog("onCalculateReceived")
         if (singleState.value.method == Method.HalfDivision) {
             jsLog("HalfDivision")
+            val result = halfDivisionMethod(params = singleState.value.toSingleSolvingParams())
             _singleState.update {
                 it.copy(
-                    solution = halfDivisionMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                    solution = result.fold(
+                        onSuccess = { it },
+                        onFailure = { error ->
+                            SingleSolution(
+                                method = Method.HalfDivision,
+                                error = error.message ?: "Unknown error"
+                            )
+                        }
+                    )
                 )
             }
         } else if (singleState.value.method == Method.SimpleIterations) {
             jsLog("SimpleIterations")
+            val result = singleSimpleIterationsMethod(params = singleState.value.toSingleSolvingParams())
+            _singleState.update {
+                it.copy(
+                    solution = result.fold(
+                        onSuccess = { it },
+                        onFailure = { error ->
+                            SingleSolution(
+                                method = Method.SimpleIterations,
+                                error = error.message ?: "Unknown error"
+                            )
+                        }
+                    )
+                )
+            }
             _singleState.update {
                 it.copy(
                     solution = singleSimpleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
@@ -71,13 +95,21 @@ class MainViewModel : ViewModel() {
             }
         } else if (singleState.value.method == Method.Newton) {
             jsLog("Newton")
+            val result = newtonsMethod(params = singleState.value.toSingleSolvingParams())
             _singleState.update {
                 it.copy(
-                    solution = newtonsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                    solution = result.fold(
+                        onSuccess = { it },
+                        onFailure = { error ->
+                            SingleSolution(
+                                method = Method.Newton,
+                                error = error.message ?: "Unknown error"
+                            )
+                        }
+                    )
                 )
             }
         }
-
     }
 
     private fun onChangeAReceived(a: Double?) {

@@ -5,11 +5,11 @@ import com.arekalov.compmatlab2.ui.model.Method
 import com.arekalov.compmatlab2.ui.model.SingleSolution
 import kotlin.math.abs
 
-private const val MAX_ITERATIONS = 100
+private const val MAX_ITERATIONS = 10000
 
 fun newtonsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
-    val a = params.a ?: Double.MIN_VALUE
-    val b = params.b ?: Double.MAX_VALUE
+    val a = params.a ?: -1000.0
+    val b = params.b ?: 1000.0
     
     if (a >= b) {
         throw IllegalArgumentException("Left bound must be less than right bound")
