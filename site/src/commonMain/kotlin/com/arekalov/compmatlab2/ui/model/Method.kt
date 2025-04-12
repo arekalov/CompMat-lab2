@@ -5,5 +5,4 @@ enum class Method() {
     Newton,
     SimpleIterations,
     HalfDivision,
-    Chords
 }

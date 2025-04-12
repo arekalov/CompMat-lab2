@@ -52,6 +52,11 @@ fun InputForm(
             onChange = { isChecked ->
                 onSingleModeChanged(!isChecked)
                 onEquationChanged(SingleEquation.stub)
+
+                onXChanged(null)
+                onYChanged(null)
+                onAChanged(null)
+                onBChanged(null)
                 onFirstEquationChanged(SingleEquation.stub)
                 onSecondEquationChanged(SingleEquation.stub)
             }

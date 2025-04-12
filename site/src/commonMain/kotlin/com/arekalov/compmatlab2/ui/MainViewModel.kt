@@ -1,20 +1,22 @@
 package com.arekalov.compmatlab2.ui
 
 import androidx.lifecycle.ViewModel
+import com.arekalov.compmatlab2.data.FIRST_EQUATION
+import com.arekalov.compmatlab2.data.SECOND_EQUATION
+import com.arekalov.compmatlab2.data.common.MathConstants
+import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.data.jsLog
+import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
+import com.arekalov.compmatlab2.data.models.toSystemSolvingParams
+import com.arekalov.compmatlab2.data.setExpression
+import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
+import com.arekalov.compmatlab2.data.singlesolvingmethods.newtonsMethod
+import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
+import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
 import com.arekalov.compmatlab2.ui.model.Method
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import com.arekalov.compmatlab2.data.*
-import com.arekalov.compmatlab2.data.common.MathConstants
-import com.arekalov.compmatlab2.data.common.SingleEquation
-import com.arekalov.compmatlab2.data.models.toSingleSolvingParams
-import com.arekalov.compmatlab2.data.models.toSystemSolvingParams
-import com.arekalov.compmatlab2.data.singlesolvingmethods.chordsMethod
-import com.arekalov.compmatlab2.data.singlesolvingmethods.halfDivisionMethod
-import com.arekalov.compmatlab2.data.singlesolvingmethods.singleIterationsMethod
-import com.arekalov.compmatlab2.data.systemsolvingmethods.simpleIterationsSystem
-import com.arekalov.compmatlab2.ui.model.SingleSolution
 
 class MainViewModel : ViewModel() {
     private val _singleState =
@@ -64,13 +66,14 @@ class MainViewModel : ViewModel() {
             jsLog("SimpleIterations")
             _singleState.update {
                 it.copy(
-                    solution = singleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                    solution = halfDivisionMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
                 )
             }
-        } else if (singleState.value.method == Method.Chords) {
+        } else if (singleState.value.method == Method.Newton) {
+            jsLog("Newton")
             _singleState.update {
                 it.copy(
-                    solution = chordsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
+                    solution = newtonsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
                 )
             }
         }

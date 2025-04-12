@@ -17,7 +17,7 @@ fun halfDivisionMethod(params: SingleSolvingParams): Result<SingleSolution> =
             throw Exception("Error: A and B is similar")
         }
         var delta = 1.0
-        var iterations = 0
+        var n = 0
         var x = 0.0
         val f = params.equation.f
         for (i in 0..MAX_ITERATIONS) {
@@ -30,7 +30,7 @@ fun halfDivisionMethod(params: SingleSolvingParams): Result<SingleSolution> =
             if (delta < params.epsilon) {
                 break
             }
-            iterations++
+            n++
 
             if (fa * fx > 0) {
                 currentA = x
@@ -42,7 +42,7 @@ fun halfDivisionMethod(params: SingleSolvingParams): Result<SingleSolution> =
             answer = x,
             functionResult = f(x),
             method = Method.HalfDivision,
-            iterationsCount = iterations,
+            iterationsCount = n,
         )
     }
 

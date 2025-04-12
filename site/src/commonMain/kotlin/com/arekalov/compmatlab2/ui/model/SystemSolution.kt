@@ -7,6 +7,6 @@ data class SystemSolution(
     val iterationsCount: Int? = null,
 ) : Solution {
     override fun toString(): String {
-        return "Sold by $method method \nx: $xAnswer \ny: $yAnswer \niterationsCount: $iterationsCount"
+        return "Solved by $method method \nx: $xAnswer \ny: $yAnswer \niterationsCount: $iterationsCount"
     }
 }

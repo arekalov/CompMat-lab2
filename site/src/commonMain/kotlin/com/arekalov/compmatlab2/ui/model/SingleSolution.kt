@@ -9,6 +9,6 @@ data class SingleSolution(
     val iterationsCount: Int? = null,
 ) : Solution {
     override fun toString(): String {
-        return "Sold by $method method \nanswer: $answer\nfunctionResult: $functionResult\niterationsCount: $iterationsCount"
+        return "Solved by $method method \nanswer: $answer\nfunctionResult: $functionResult\niterationsCount: $iterationsCount"
     }
 }

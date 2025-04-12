@@ -5,49 +5,39 @@ import com.arekalov.compmatlab2.ui.model.Method
 import com.arekalov.compmatlab2.ui.model.SingleSolution
 import kotlin.math.abs
 
-private const val A = -1_000_000.0
-private const val B = 1_000_000.0
 private const val MAX_ITERATIONS = 100
-fun chordsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
-    var currentA = params.a ?: A
-    var currentB = params.b ?: B
 
-    if (currentB == currentA) {
-        throw IllegalArgumentException("Error: A and B are the same")
-    }
+fun newtonsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
+    var x = params.a ?: throw IllegalArgumentException("Initial guess must be provided")
 
     val f = params.equation.f
+    val f_prime = params.equation.proizv
+
     var iterations = 0
-    var x = 0.0
-    var xPred = Double.MAX_VALUE
 
-    for (i in 0..MAX_ITERATIONS) {
-        x = nextVal(currentA, currentB, f)
+    for (i in 0 until MAX_ITERATIONS) {
+        val fx = f(x)
+        val fx_prime = f_prime(x)
 
-        if (abs(xPred - x) < params.epsilon) {
-            break
+        if (fx_prime == 0.0) {
+            throw ArithmeticException("Derivative is zero, cannot proceed")
         }
 
+        val xNext = x - fx / fx_prime
+
+        // Критерии завершения итерационного процесса
+        if (abs(xNext - x) < params.epsilon || abs(fx) < params.epsilon || abs(fx / fx_prime) < params.epsilon) {
+            return@runCatching SingleSolution(
+                answer = xNext,
+                functionResult = f(xNext),
+                method = Method.Newton,
+                iterationsCount = iterations + 1, // Учитываем текущую итерацию
+            )
+        }
+
+        x = xNext
         iterations++
-
-        // Определяем, које значение обновлять
-        if (f(currentA) * f(x) < 0) {
-            currentB = x
-        } else {
-            currentA = x
-        }
-
-        xPred = x
     }
 
-    SingleSolution(
-        answer = x,
-        functionResult = f(x),
-        method = Method.Chords,
-        iterationsCount = iterations,
-    )
-}
-
-private fun nextVal(a: Double, b: Double, f: (Double) -> Double): Double {
-    return (a * f(b) - b * f(a)) / (f(b) - f(a))
+    throw ArithmeticException("Failed to converge after $MAX_ITERATIONS iterations")
 }

@@ -3,6 +3,7 @@ package com.arekalov.compmatlab2.components.widgets
 import androidx.compose.runtime.Composable
 import com.arekalov.compmatlab2.common.UNEXPECTED_STR
 import com.arekalov.compmatlab2.data.common.SingleEquation
+import com.arekalov.compmatlab2.data.jsLog
 import com.varabyte.kobweb.compose.ui.Modifier
 import com.varabyte.kobweb.compose.ui.modifiers.background
 import com.varabyte.kobweb.compose.ui.modifiers.borderRadius
