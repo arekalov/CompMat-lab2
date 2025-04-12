@@ -88,11 +88,6 @@ class MainViewModel : ViewModel() {
                     )
                 )
             }
-            _singleState.update {
-                it.copy(
-                    solution = singleSimpleIterationsMethod(params = singleState.value.toSingleSolvingParams()).getOrNull()
-                )
-            }
         } else if (singleState.value.method == Method.Newton) {
             jsLog("Newton")
             val result = newtonsMethod(params = singleState.value.toSingleSolvingParams())
