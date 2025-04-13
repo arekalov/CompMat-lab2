@@ -17,16 +17,14 @@ fun derivative(x: Double, f: (Double) -> Double, h: Double = 1e-5): Double {
 
 fun singleSimpleIterationsMethod(params: SingleSolvingParams): Result<SingleSolution> = runCatching {
     val f = params.equation.f
-    val phi = params.equation.phi
-
-
     val a = params.a ?: -100.0
     val b = params.b ?: 100.0
     val epsilon = params.epsilon
 
     // Оценка максимальной производной
     val maxDerivative = (0 until SEGMENTS)
-        .map { i -> a + i * (b - a) / (SEGMENTS - 1) }.maxOfOrNull { x -> abs(derivative(x, f)) } ?: throw IllegalArgumentException("Не удалось оценить производную")
+        .map { i -> a + i * (b - a) / (SEGMENTS - 1) }.maxOfOrNull { x -> abs(derivative(x, f)) }
+        ?: throw IllegalArgumentException("Couldn't evaluate the derivative")
 
     var lambda = 1.0 / maxDerivative
 
@@ -60,7 +58,7 @@ fun singleSimpleIterationsMethod(params: SingleSolvingParams): Result<SingleSolu
         iterations++
     }
 
-    throw IllegalArgumentException("Метод не сошелся за $MAX_ITERATIONS итераций")
+    throw IllegalArgumentException("The method did not converge in $MAX_ITERATIONS of iterations")
 }
 
 

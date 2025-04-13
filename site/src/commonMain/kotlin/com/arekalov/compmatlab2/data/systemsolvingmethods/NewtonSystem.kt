@@ -36,7 +36,7 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
             "sin(x-1)+y=1.5" -> sin(x - 1) + y - 1.5
             "tg(xy)=x^2" -> tan(x * y) - x.pow(2)
             "sin(x+y)=1.5x-0.1" -> sin(x + y) - 1.5 * x + 0.1
-            else -> throw IllegalArgumentException("Неизвестное уравнение")
+            else -> throw IllegalArgumentException("Unexpected equation")
         }
     }
 
@@ -47,7 +47,7 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
             "x-sin(y+1)=1" -> x - sin(y + 1) - 1
             "0.8x^2+2y^2=1" -> 0.8 * x.pow(2) + 2 * y.pow(2) - 1
             "x^2+y^2=1" -> x.pow(2) + y.pow(2) - 1
-            else -> throw IllegalArgumentException("Неизвестное уравнение")
+            else -> throw IllegalArgumentException("Unexpected equation")
         }
     }
 
@@ -72,7 +72,7 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
                 y = -DEFAULT_Y
                 continue
             }
-            throw ArithmeticException("Якобиан равен нулю, метод не может быть применен")
+            throw ArithmeticException("Jacobian is zero, the method cannot be applied")
         }
 
         // Вычисляем новые значения x и y
@@ -95,5 +95,5 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
         }
     }
 
-    throw ArithmeticException("Метод не сошелся за $MAX_ITERATIONS итераций")
+    throw ArithmeticException("The method did not converge in $MAX_ITERATIONS of iterations")
 } 
