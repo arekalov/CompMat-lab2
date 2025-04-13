@@ -39,8 +39,7 @@ sealed interface State {
         val error: String? = null,
     ) : State {
         override fun isCorrect(): Boolean {
-            return equationFirst != null && equationSecond != null && x != null
-                    && y != null && solution != null && error == null
+            return equationFirst != null && equationSecond != null && solution != null && error == null
         }
     }
 }

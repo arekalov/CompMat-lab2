@@ -53,6 +53,20 @@ class MathConstants() {
                 f = { _ -> .0 },
                 desmos = "\\sin(x-1)+y=1.5"
             ),
+            SingleEquation(
+                string = "tg(xy)=x^2",
+                proizv = { _ -> .0 },
+                phi = { x -> .0},
+                f = { _ -> .0 },
+                desmos = "\\tan xy=x^{2}"
+            ),
+            SingleEquation(
+                string = "sin(x+y)=1.5x-0.1",
+                proizv = { _ -> .0 },
+                phi = { x -> .0},
+                f = { _ -> .0 },
+                desmos = "\\sin\\left(x+y\\right)=1.5x-0.1"
+            ),
         )
 
         val SYSTEM_EQUATIONS_SECOND_LIST = listOf<SingleEquation>(
@@ -77,6 +91,20 @@ class MathConstants() {
                 phi = { x -> (cos(x - 1) + 0.7) / 2 },
                 f = { _ -> .0 },
                 desmos = "x-\\sin(y+1)=1"
+            ),
+            SingleEquation(
+                string = "0.8x^2+2y^2=1",
+                proizv = { _ -> .0 },
+                phi = { x -> .0 },
+                f = { _ -> .0 },
+                desmos = "0.8x^{2}+2y^{2}=1"
+            ),
+            SingleEquation(
+                string = "x^2+y^2=1",
+                proizv = { _ -> .0 },
+                phi = { x -> .0 },
+                f = { _ -> .0 },
+                desmos = "x^{2}+y^{2}=1"
             ),
         )
 

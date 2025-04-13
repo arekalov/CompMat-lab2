@@ -5,10 +5,14 @@ import com.arekalov.compmatlab2.ui.model.Method
 import com.arekalov.compmatlab2.ui.model.SystemSolution
 import kotlin.math.abs
 import kotlin.math.cos
+import kotlin.math.pow
 import kotlin.math.sin
+import kotlin.math.tan
 
 private const val MAX_ITERATIONS = 100
 private const val H = 1e-5 // Шаг для численного дифференцирования
+private const val DEFAULT_X = 1.0
+private const val DEFAULT_Y = 1.0
 
 // Функция для численного вычисления частной производной
 private fun partialDerivative(f: (Double, Double) -> Double, x: Double, y: Double, isX: Boolean): Double {
@@ -20,16 +24,18 @@ private fun partialDerivative(f: (Double, Double) -> Double, x: Double, y: Doubl
 }
 
 fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatching {
-    var x = params.x ?: 0.0
-    var y = params.y ?: 0.0
+    var x = params.x ?: DEFAULT_X
+    var y = params.y ?: DEFAULT_Y
     var iterations = 0
 
     // Определяем функции системы
-    val f1: (Double, Double) -> Double = { x, y -> 
+    val f1: (Double, Double) -> Double = { x, y ->
         when (params.firstEquation.string) {
             "x+sin(y)=-0.4" -> x + sin(y) + 0.4
             "sin(y)+2x=2" -> sin(y) + 2 * x - 2
             "sin(x-1)+y=1.5" -> sin(x - 1) + y - 1.5
+            "tg(xy)=x^2" -> tan(x * y) - x.pow(2)
+            "sin(x+y)=1.5x-0.1" -> sin(x + y) - 1.5 * x + 0.1
             else -> throw IllegalArgumentException("Неизвестное уравнение")
         }
     }
@@ -39,6 +45,8 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
             "2y-cos(x-1)=0.7" -> 2 * y - cos(x - 1) - 0.7
             "y+cos(x-1)=0.7" -> y + cos(x - 1) - 0.7
             "x-sin(y+1)=1" -> x - sin(y + 1) - 1
+            "0.8x^2+2y^2=1" -> 0.8 * x.pow(2) + 2 * y.pow(2) - 1
+            "x^2+y^2=1" -> x.pow(2) + y.pow(2) - 1
             else -> throw IllegalArgumentException("Неизвестное уравнение")
         }
     }
@@ -58,6 +66,12 @@ fun newtonSystem(params: SystemSolvingParams): Result<SystemSolution> = runCatch
         val det = df1_dx * df2_dy - df1_dy * df2_dx
 
         if (abs(det) < 1e-10) {
+            // Если якобиан близок к нулю, пробуем другое начальное приближение
+            if (iterations == 0) {
+                x = -DEFAULT_X
+                y = -DEFAULT_Y
+                continue
+            }
             throw ArithmeticException("Якобиан равен нулю, метод не может быть применен")
         }
 
